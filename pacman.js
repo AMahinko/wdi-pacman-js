@@ -2,8 +2,11 @@
 var score = 0;
 var lives = 2;
 
+var inky = { name: "Inky", menu_option: 1 color: 'red', character: 'shadow', edible: 'false'};
+var blinky = { name: "Blinky", menu_option: 2 color: 'cyan', character: 'speedy', edible: 'false'};
+var pinky = { name: "Pinky", menu_option: 3 color: 'pink', character: 'bashful', edible: 'false'};
+var clyde = { name: "Clyde", menu_option: 4 color: 'orange', character: 'poky', edible: 'false'};
 
-// Define your ghosts here
 
 // replace this comment with your four ghosts setup as objects
 
