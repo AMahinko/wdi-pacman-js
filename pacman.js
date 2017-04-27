@@ -1,11 +1,55 @@
 // Setup initial game stats
 var score = 0;
 var lives = 2;
+var pellet = 4;
 
-var inky = { name: "Inky", menu_option: 1 color: 'red', character: 'shadow', edible: 'false'};
-var blinky = { name: "Blinky", menu_option: 2 color: 'cyan', character: 'speedy', edible: 'false'};
-var pinky = { name: "Pinky", menu_option: 3 color: 'pink', character: 'bashful', edible: 'false'};
-var clyde = { name: "Clyde", menu_option: 4 color: 'orange', character: 'poky', edible: 'false'};
+var inky = { name: "Inky", menu_option: 1, color: 'red', character: 'shadow', edible: false};
+var blinky = { name: "Blinky", menu_option: 2, color: 'cyan', character: 'speedy', edible: false};
+var pinky = { name: "Pinky", menu_option: 3, color: 'pink', character: 'bashful', edible: false};
+var clyde = { name: "Clyde", menu_option: 4, color: 'orange', character: 'poky', edible: false};
+
+function eatGhost(ghost) {
+
+  switch (ghost.edible) {
+    case false:
+      gameOver();
+      console.log('\nPacMan lost a life!');
+      lives --;
+      break;
+
+    default:
+      console.log("\n" + ghost.name + " has been devoured!")
+      score += 100;
+  }
+}
+
+function isEdible(ghost) {
+  if (ghost.edible === true)
+    return " (edible)"
+  else {
+    return " (inedible)"
+  }
+}
+
+function eatPowerPellet() {
+  if (pellet > 0) {
+
+    score += 50
+    pellet --
+    inky.edible = true
+    blinky.edible = true
+    pinky.edible = true
+    clyde.edible = true
+  }
+}
+
+function gameOver() {
+  if (lives < 1) {
+    console.log(" Game Over");
+    process.exit();
+  }
+
+}
 
 
 // replace this comment with your four ghosts setup as objects
@@ -26,13 +70,22 @@ function clearScreen() {
 }
 
 function displayStats() {
-  console.log('Score: ' + score + '     Lives: ' + lives);
+  console.log('Score: ' + score + '     Lives: ' + lives + "\n\nPower Pellets: " + pellet);
 }
 
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
+  if (pellet > 0) {
+    console.log('(p) Eat Pellet');
+
+  }
   console.log('(q) Quit');
+  console.log('(1) Eat Inky' + isEdible(inky));
+  console.log('(2) Eat Blinky' + isEdible(blinky));
+  console.log('(3) Eat Pinky' + isEdible(pinky));
+  console.log('(4) Eat Clyde' + isEdible(clyde));
+  // console.log("Debug: inky edible is " + inky.edible)
 }
 
 function displayPrompt() {
@@ -55,9 +108,25 @@ function processInput(key) {
     case 'q':
       process.exit();
       break;
+    case 'p':
+      eatPowerPellet();
+      break;
     case 'd':
       eatDot();
       break;
+    case '1':
+      eatGhost(inky);
+      break;
+    case '2':
+      eatGhost(blinky);
+      break;
+    case '3':
+      eatGhost(pinky);
+      break;
+    case '4':
+      eatGhost(clyde);cd
+      break;
+
     default:
       console.log('\nInvalid Command!');
   }
